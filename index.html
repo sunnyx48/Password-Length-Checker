@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Password Length Checker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>Password Length Checker</h1>
+    
+
+    <label for="password">Password</label>
+    <div class="password-wrap">
+      <input id="password" type="password" placeholder="Enter password" />
+      <button
+        id="togglePassword"
+        type="button"
+        class="eye-btn"
+        aria-label="Show password"
+        title="Show password"
+      >
+        &#128065;
+      </button>
+    </div>
+
+    <button id="checkBtn">Check</button>
+
+    <section id="result" class="result hidden" aria-live="polite">
+      <p><strong>Entered Length:</strong> <span id="enteredLength">0</span></p>
+      <p><strong>Status:</strong> <span id="status">-</span></p>
+      <p id="message"></p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
