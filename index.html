@@ -3,34 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Password Length Checker</title>
+  <title>Password Strength Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Password Length Checker</h1>
-    
+  <div class="atmosphere" aria-hidden="true"></div>
 
-    <label for="password">Password</label>
-    <div class="password-wrap">
-      <input id="password" type="password" placeholder="Enter password" />
-      <button
-        id="togglePassword"
-        type="button"
-        class="eye-btn"
-        aria-label="Show password"
-        title="Show password"
-      >
-        &#128065;
-      </button>
-    </div>
+  <main class="shell">
+    <header class="brand">
+      <p class="brand-mark">VaultCheck</p>
+      <h1>Password Strength Analyzer</h1>
+      <p class="lede">
+        Score length, complexity, and uniqueness — then get stronger alternatives.
+      </p>
+    </header>
 
-    <button id="checkBtn">Check</button>
+    <form id="analyzerForm" class="analyzer" autocomplete="off">
+      <label for="password">Enter a password</label>
+      <div class="password-wrap">
+        <input
+          id="password"
+          type="password"
+          name="password"
+          placeholder="Type to analyze…"
+          spellcheck="false"
+          autocomplete="new-password"
+        />
+        <button
+          id="togglePassword"
+          type="button"
+          class="eye-btn"
+          aria-label="Show password"
+          title="Show password"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </button>
+      </div>
 
-    <section id="result" class="result hidden" aria-live="polite">
-      <p><strong>Entered Length:</strong> <span id="enteredLength">0</span></p>
-      <p><strong>Status:</strong> <span id="status">-</span></p>
-      <p id="message"></p>
+      <div class="meter" aria-hidden="true">
+        <div id="meterFill" class="meter-fill"></div>
+      </div>
+      <div class="meter-meta">
+        <span id="strengthLabel" class="strength-label">Waiting</span>
+        <span id="scoreLabel" class="score-label">0 / 100</span>
+      </div>
+
+      <ul id="checklist" class="checklist" aria-label="Password requirements">
+        <li data-rule="length"><span class="dot"></span> At least 12 characters</li>
+        <li data-rule="upper"><span class="dot"></span> Uppercase letter</li>
+        <li data-rule="lower"><span class="dot"></span> Lowercase letter</li>
+        <li data-rule="number"><span class="dot"></span> Number</li>
+        <li data-rule="special"><span class="dot"></span> Special character</li>
+        <li data-rule="unique"><span class="dot"></span> Not common or previously used</li>
+      </ul>
+
+      <div class="actions">
+        <button id="checkBtn" type="submit">Analyze</button>
+        <button id="saveBtn" type="button" class="ghost" disabled>
+          Save to history
+        </button>
+      </div>
+    </form>
+
+    <section id="feedback" class="panel hidden" aria-live="polite">
+      <h2>Feedback</h2>
+      <p id="summary"></p>
+      <ul id="tips" class="tips"></ul>
+    </section>
+
+    <section id="suggestions" class="panel hidden">
+      <div class="panel-head">
+        <h2>Stronger alternatives</h2>
+        <button id="regenBtn" type="button" class="ghost small">Regenerate</button>
+      </div>
+      <ul id="altList" class="alt-list"></ul>
+    </section>
+
+    <section class="panel history-panel">
+      <div class="panel-head">
+        <h2>Password history</h2>
+        <button id="clearHistoryBtn" type="button" class="ghost small">Clear</button>
+      </div>
+      <p class="history-note">
+        Hashes only — never plaintext. Blocks reuse of passwords you save here.
+      </p>
+      <p id="historyCount" class="history-count">0 saved hashes</p>
     </section>
   </main>
 
